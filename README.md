@@ -21,7 +21,7 @@ Make sure that you have 19 splits in total. You can name them whatever you want.
 
 AutoSplitter resets only when lives go to 0. You can always reset manually by unchecking the 'Reset' checkbox.
 
-## Known bugs
+## Known issues
 
 - Timer won't start after going to the level select.
 
