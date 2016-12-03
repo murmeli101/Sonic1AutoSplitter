@@ -27,4 +27,4 @@ AutoSplitter resets only when lives go to 0. You can always reset manually by un
 
 ## Tips
 
-- Timer should work if your save state starts from a game over or if it's made right after starting the game.
+- Timer should also work from a save state if it starts from a game over or if it's made right after starting the game.
