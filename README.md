@@ -16,7 +16,7 @@ LiveSplit autosplitter for Sonic the Hedgehog (Sega Mega Drive / Genesis).
 3. Edit layout...
 4. Add Scriptable Auto Splitter
 5. Double click it and set Script Path to Sonic1.asl
-
+(6. Compare against -> Game Time)
 Make sure that you have 19 splits in total. You can name them whatever you want.
 
 AutoSplitter resets only when lives go to 0. You can always reset manually by unchecking the 'Reset' checkbox.
