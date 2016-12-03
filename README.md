@@ -6,7 +6,7 @@ LiveSplit autosplitter for Sonic the Hedgehog (Sega Mega Drive / Genesis).
 
 
 
-## Currently supported versions:
+## Currently supported versions
 - Steam (Simple launcher)
 
 ## How to use
