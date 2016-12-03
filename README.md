@@ -2,7 +2,7 @@
 
 LiveSplit autosplitter for Sonic the Hedgehog (Sega Mega Drive / Genesis).
 
-19 splits total. You can name them whatever you want.
+19 splits in total. You can name them whatever you want.
 
 
 
