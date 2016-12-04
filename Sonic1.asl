@@ -19,9 +19,9 @@ start
 	}
 
 	if (current.seconds == 0 && current.minutes == 0 && current.level == 0 && current.lives == 3 && current.introPlaying != 7) {
-//		current.totalTime = 0;
-//		current.addedTime = 0;
-//		current.levelCounter = 0;
+		current.totalTime = 0;
+		current.addedTime = 0;
+		current.levelCounter = 0;
 		return (current.seconds == 0 && current.minutes == 0 && current.lives == 3 && current.introPlaying == 0 && current.demoStarted == false);
 	}
 }
