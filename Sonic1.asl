@@ -48,17 +48,14 @@ split
 			current.addedTime -= 2;
 		}
 		current.addedTime += old.minutes*60 + old.seconds;
-		print("new level 2");
 		current.levelCounter += 1;
 		current.previousLives = current.lives;
-		print("old seconds" + old.seconds.ToString());
 		return true;
 		
 	// First level
 	} else if (current.seconds == 0 && current.minutes == 0 && (old.minutes*60 + old.seconds) > 24 && current.lives == current.previousLives && current.levelCounter == 0) {
 		current.addedTime += old.minutes*60 + old.seconds;
 		current.levelCounter = 1;
-		print("new level");
 		return true;
 		
 	// Final split
@@ -75,14 +72,11 @@ gameTime
 
 	// Delay updating previousLives by 1 second, so that restarting doesn't overlap with splitting
 	} else if (current.seconds == 1 && current.minutes == 0 && (old.minutes*60 + old.seconds) > 0 && current.lives < current.previousLives) {
-		print("restart level");
 		current.previousLives = current.lives;
-		//current.addedTime += old.minutes*60 + old.seconds;
 	}
 
 	// Checkpoint
 	if ((old.minutes*60 + old.seconds) > 0 && (current.minutes*60 + current.seconds) > 0 && (current.minutes*60 + current.seconds) < (old.minutes*60 + old.seconds) && current.lives != current.previousLives) {
-		print ("checkpoint");
 		current.addedTime += (old.minutes*60 + old.seconds) - (current.minutes*60 + current.seconds);
 		current.previousLives = current.lives;
 		current.addedTime -= 1;
@@ -111,7 +105,6 @@ gameTime
 		current.previousLives = current.lives;
 	}
 
-	print("levelcounter " + current.levelCounter.ToString());
 	return TimeSpan.FromSeconds(current.totalTime);
 
 
