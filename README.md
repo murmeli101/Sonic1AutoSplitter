@@ -18,6 +18,7 @@ LiveSplit autosplitter for Sonic the Hedgehog (Sega Mega Drive / Genesis).
 5. (Compare against -> Game Time)
 
 Or alternatively:
+
 1. Download Sonic1.asl
 2. Open LiveSplit
 3. Edit layout...
