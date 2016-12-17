@@ -3,7 +3,7 @@ state("SEGAGenesisClassics")
 	byte seconds : "SEGAGenesisClassics.exe", 0x2D69D9;
 	byte minutes : "SEGAGenesisClassics.exe", 0x2D69D6;
 	byte lives   : "SEGAGenesisClassics.exe", 0x2D69C7;
-	byte level   : "SEGAGenesisClassics.exe", 0x2D6B36; // Could be used to prevent level select from starting the timer
+	byte level   : "SEGAGenesisClassics.exe", 0x2D6B36;
 	byte introPlaying: "SEGAGenesisClassics.exe", 0x2B31CA;
 	byte finalSplit:  "SEGAGenesisClassics.exe", 0x2D3BB5;
 	byte pressedStart:  "SEGAGenesisClassics.exe", 0x2D6A12;
@@ -23,6 +23,7 @@ start
 		current.totalTime = 0;
 		current.addedTime = 0;
 		current.levelCounter = 0;
+		current.level17time = 0;
 		return (current.introPlaying == 0 && current.demoStarted == false && current.pressedStart == 0);
 	}
 }
@@ -37,6 +38,7 @@ init
 	current.totalTime = 0;
 	current.addedTime = 0;
 	current.previousLives = 3;
+	current.level17time = 0;
 	current.levelCounter = 0;
 	current.demoStarted = false;
 }
@@ -46,9 +48,11 @@ split
 	// Next level
 	if (current.seconds == 0 && current.minutes == 0 && (old.minutes*60 + old.seconds) > 0 && current.lives == current.previousLives && current.levelCounter != 0) {
 		if (current.levelCounter == 17) {
-			current.addedTime -= 2;
+			current.addedTime += current.level17time;
 		}
-		current.addedTime += old.minutes*60 + old.seconds;
+		else {
+			current.addedTime += old.minutes*60 + old.seconds;
+		}
 		current.levelCounter += 1;
 		current.previousLives = current.lives;
 		return true;
@@ -97,7 +101,9 @@ gameTime
 		current.totalTime = 0;
 		current.addedTime = 0;
 	} else if ((current.minutes*60 + current.seconds) > 0 && current.finalSplit == 0 && current.levelCounter == 17) {
-		;
+		if (current.level17time == 0) {
+			current.level17time = current.minutes*60 + current.seconds;
+		}
 	} else if ((current.minutes*60 + current.seconds) > (old.minutes*60 + old.seconds)) {
 		current.totalTime = current.addedTime + current.minutes*60 + current.seconds; // Main counter
 	}
