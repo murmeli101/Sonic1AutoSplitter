@@ -101,7 +101,7 @@ gameTime
 		current.totalTime = 0;
 		current.addedTime = 0;
 	} else if ((current.minutes*60 + current.seconds) > 0 && current.finalSplit == 0 && current.levelCounter == 17) {
-		if (current.level17time == 0) {
+		if (current.level17time == 0 && current.lives == current.previousLives) {
 			current.level17time = current.minutes*60 + current.seconds;
 		}
 	} else if ((current.minutes*60 + current.seconds) > (old.minutes*60 + old.seconds)) {
