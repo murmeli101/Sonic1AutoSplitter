@@ -32,4 +32,5 @@ AutoSplitter resets only when lives go to 0. You can always reset manually.
 
 ## Known issues
 
+- Timer starts even when the demo starts, will fix asap.
 - Timer starts after starting a level in level select.
