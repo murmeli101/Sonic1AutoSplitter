@@ -5,6 +5,7 @@ state("SEGAGenesisClassics")
 	byte lives   : "SEGAGenesisClassics.exe", 0x2D69C7;
 	byte level   : "SEGAGenesisClassics.exe", 0x2D6B36;
 	byte introPlaying: "SEGAGenesisClassics.exe", 0x2B31CA;
+	// byte demoPlaying: "SEGAGenesisClassics.exe", 0x2D3BB5;
 	byte finalSplit:  "SEGAGenesisClassics.exe", 0x2D3BB5;
 	byte pressedStart:  "SEGAGenesisClassics.exe", 0x2D6A12;
 }
@@ -15,7 +16,7 @@ start
 		current.demoStarted = true;
 	}
 	
-	if (current.seconds == 0 && current.minutes == 0 && current.lives == 3 && current.introPlaying == 0 && current.demoStarted == true) {
+	if (current.seconds == 1 && current.minutes == 0 && current.lives == 3 && current.introPlaying == 0 && current.demoStarted == true) {
 		current.demoStarted = false;
 	}
 
@@ -24,6 +25,7 @@ start
 		current.addedTime = 0;
 		current.levelCounter = 0;
 		current.level17time = 0;
+		current.levelTime = 0;
 		return (current.introPlaying == 0 && current.demoStarted == false && current.pressedStart == 0);
 	}
 }
@@ -39,6 +41,7 @@ init
 	current.addedTime = 0;
 	current.previousLives = 3;
 	current.level17time = 0;
+	current.levelTime = 0;
 	current.levelCounter = 0;
 	current.demoStarted = false;
 }
@@ -49,18 +52,21 @@ split
 	if (current.seconds == 0 && current.minutes == 0 && (old.minutes*60 + old.seconds) > 0 && current.lives == current.previousLives && current.levelCounter != 0) {
 		if (current.levelCounter == 17) {
 			current.addedTime += current.level17time;
+			current.level17time = 0;
 		}
 		else {
-			current.addedTime += old.minutes*60 + old.seconds;
+			current.addedTime += current.levelTime;
 		}
 		current.levelCounter += 1;
 		current.previousLives = current.lives;
+		current.levelTime = 0;
 		return true;
 		
 	// First level
-	} else if (current.seconds == 0 && current.minutes == 0 && (old.minutes*60 + old.seconds) > 24 && current.lives == current.previousLives && current.levelCounter == 0) {
+	} else if (current.seconds == 0 && current.minutes == 0 && (old.minutes*60 + old.seconds) > 23 && current.lives == current.previousLives && current.levelCounter == 0) {
 		current.addedTime += old.minutes*60 + old.seconds;
 		current.levelCounter = 1;
+		current.levelTime = 0;
 		return true;
 		
 	// Final split
@@ -91,6 +97,7 @@ gameTime
 	if (current.lives == 0) {
 		current.totalTime = 0;
 		current.addedTime = 0;
+		current.levelTime = 0;
 		current.previousLives = 3;
 		current.demoStarted = false;
 		current.levelCounter = 0;
@@ -104,7 +111,13 @@ gameTime
 		if (current.level17time == 0 && current.lives == current.previousLives) {
 			current.level17time = current.minutes*60 + current.seconds;
 		}
-	} else if ((current.minutes*60 + current.seconds) > (old.minutes*60 + old.seconds)) {
+	} else if ((current.minutes*60 + current.seconds) > 0 && current.levelCounter != 17) {
+		if (current.lives == current.previousLives) {
+			current.levelTime = current.minutes*60 + current.seconds;
+		}
+	}
+	
+	if ((current.minutes*60 + current.seconds) > (old.minutes*60 + old.seconds) && current.level17time == 0) { //  && current.levelCounter != 17
 		current.totalTime = current.addedTime + current.minutes*60 + current.seconds; // Main counter
 	}
 	
