@@ -34,3 +34,4 @@ AutoSplitter resets only when lives go to 0. You can always reset manually.
 
 - Timer starts after starting a level in level select.
 - If the demo starts, you have to wait until 0:01 before pressing start. otherwise the timer refuses to start.
+- Sometimes Auto Splitter fails to update the minute counter and falls exactly 1 minute behind the actual time.
